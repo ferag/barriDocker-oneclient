@@ -39,6 +39,7 @@ tar cvfz output.tgz *
 # Collect output
 mkdir -p "$OUTPUTDIR"/
 cp $(echo "$OUTPUT_FILENAMES" | tr ',' ' ' ) "$OUTPUTDIR"/  || exit 1
+rm $WORKDIR/*
 
 echo End at $(date)
 
