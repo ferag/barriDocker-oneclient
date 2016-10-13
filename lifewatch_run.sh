@@ -20,13 +20,15 @@ echo Extracting input
 #tar xvfz "$INPUTDIR/delft3d_repository.tar.gz" --no-same-owner -C "$WORKDIR" || exit 1
 #cd "$WORKDIR"/delft3d_repository/06_delwaq || exit 2
 
-cd ./delft3d_repository/examples/06_delwaq || exit 1
+cp $INPUTDIR/* $WORKDIR
+
+cd $WORKDIR || exit 1
 
 echo Editting $D3D_PARAM with value $D3D_VALUE
 
 if [ ! -z $D3D_PARAM ]; then
- sed -i "s/.* ; $D3D_PARAM/$D3D_VALUE ; $D3D_PARAM/g" /home/aguilarf/IFCA/INDIGO/WP2/demo/delft3d_repository/examples/06_delwaq/com-tut_fti_waq.inp || exit 1
- grep "; $D3D_PARAM" /home/aguilarf/IFCA/INDIGO/WP2/demo/delft3d_repository/examples/06_delwaq/com-tut_fti_waq.inp
+ sed -i "s/.* ; $D3D_PARAM/$D3D_VALUE ; $D3D_PARAM/g" $INPUT_CONFIG_FILE || exit 1
+ grep "; $D3D_PARAM" $INPUT_CONFIG_FILE
 fi
 
 echo Run test
@@ -44,3 +46,4 @@ sleep 5
 
 umount /onedata/input || exit 1
 umount /onedata/output || exit 1
+
