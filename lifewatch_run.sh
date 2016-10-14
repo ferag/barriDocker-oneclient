@@ -19,10 +19,11 @@ WORKDIR=$MESOS_SANDBOX
 echo Extracting input
 #tar xvfz "$INPUTDIR/delft3d_repository.tar.gz" --no-same-owner -C "$WORKDIR" || exit 1
 #cd "$WORKDIR"/delft3d_repository/06_delwaq || exit 2
-
 cp $INPUTDIR/* $WORKDIR
 
 cd $WORKDIR || exit 1
+tar zxvf ./*
+chmod 777 ./*.sh
 
 echo Editting $D3D_PARAM with value $D3D_VALUE
 
