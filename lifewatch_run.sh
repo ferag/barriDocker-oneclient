@@ -21,8 +21,8 @@ echo Extracting input
 
 find "$INPUTDIR" -name "*.tar.gz" -exec tar xfz {} --no-same-owner -C "$WORKDIR" \; || exit 1
 #cp "$INPUTDIR"/* "$WORKDIR" || exit 1
-sleep 8
-cp $INPUTDIR/$INPUT_CONFIG_FILE "$WORKDIR" || exit 1
+#sleep 8
+#cp $INPUTDIR/$INPUT_CONFIG_FILE "$WORKDIR" || exit 1
 
 cd "$WORKDIR" || exit 2
 
@@ -47,13 +47,13 @@ sleep 3
 
 # Collect output
 echo Compressing output: 
-#tar cfz "$OUTPUTDIR"/"$OUTPUT_FILENAMES" * 
-cp ./*.hda "$OUTPUTDIR"
-cp ./*.hdf "$OUTPUTDIR"
-cp ./*.inp "$OUTPUTDIR"
-cp ./*.lga "$OUTPUTDIR"
-cp ./*.lsp "$OUTPUTDIR"
-cp ./*.lst "$OUTPUTDIR"
+tar cfz "$OUTPUTDIR"/"$OUTPUT_FILENAMES" * 
+#cp ./*.hda "$OUTPUTDIR"
+#cp ./*.hdf "$OUTPUTDIR"
+#cp ./*.inp "$OUTPUTDIR"
+#cp ./*.lga "$OUTPUTDIR"
+#cp ./*.lsp "$OUTPUTDIR"
+#cp ./*.lst "$OUTPUTDIR"
 
 echo Output file: "$OUTPUTDIR"/"$OUTPUT_FILENAMES"
 
