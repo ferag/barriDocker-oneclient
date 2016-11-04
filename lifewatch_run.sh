@@ -27,7 +27,7 @@ echo Listing directory content:
 ls -latr
 echo "*************"
 
-chmod 777 ./*.sh
+chmod 777 ./*
 
 echo Editing $D3D_PARAM with value $D3D_VALUE
 
