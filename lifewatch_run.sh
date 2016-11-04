@@ -21,6 +21,7 @@ echo Extracting input
 
 find "$INPUTDIR" -name "*.tar.gz" -exec tar xfz {} --no-same-owner -C "$WORKDIR" \; || exit 1
 #cp "$INPUTDIR"/* "$WORKDIR" || exit 1
+sleep 10
 cp $INPUTDIR/$INPUT_CONFIG_FILE $WORKDIR
 
 cd "$WORKDIR" || exit 2
