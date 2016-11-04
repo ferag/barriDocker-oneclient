@@ -11,21 +11,24 @@ echo Start at $(date)
 INPUTDIR="/onedata/input/$INPUT_ONEDATA_SPACE/$INPUT_PATH"
 OUTPUTDIR="/onedata/output/$OUTPUT_ONEDATA_SPACE/$OUTPUT_PATH"
 
+mkdir -p "$OUTPUTDIR" # create if it does not exists
+TEMPW=$(mktemp -d --tmpdir="$OUTPUTDIR" workspace.XXXXXXXXXX)
 
-WORKDIR=$MESOS_SANDBOX
-#WORKDIR="$OUTPUTDIR"
+WORKDIR="$TEMPW"
 
 # Extract input
 echo Extracting input
-#tar xvfz "$INPUTDIR/delft3d_repository.tar.gz" --no-same-owner -C "$WORKDIR" || exit 1
-#cd "$WORKDIR"/delft3d_repository/06_delwaq || exit 2
-cp $INPUTDIR/* $WORKDIR
 
-cd $WORKDIR || exit 1
-tar zxvf ./*
+find "$INPUTDIR" -name "*.tar.gz" -exec tar xfz {} --no-same-owner -C "$WORKDIR" \; || exit 1
+cd "$WORKDIR" || exit 2
+
+echo Listing directory content:
+ls -latr
+echo "*************"
+
 chmod 777 ./*.sh
 
-echo Editting $D3D_PARAM with value $D3D_VALUE
+echo Editing $D3D_PARAM with value $D3D_VALUE
 
 if [ ! -z $D3D_PARAM ]; then
  sed -i "s/.* ; $D3D_PARAM/$D3D_VALUE ; $D3D_PARAM/g" $INPUT_CONFIG_FILE || exit 1
@@ -35,12 +38,26 @@ fi
 echo Run test
 # Run Rscript
 ./run_delwaq.sh || exit 1
-tar cvfz output.tgz *
+
+sleep 3
 
 # Collect output
-mkdir -p "$OUTPUTDIR"/
-cp $(echo "$OUTPUT_FILENAMES" | tr ',' ' ' ) "$OUTPUTDIR"/  || exit 1
-rm $WORKDIR/*
+echo Compressing output: 
+#tar cfz "$OUTPUTDIR"/"$OUTPUT_FILENAMES" * 
+cp ./*.hda ..
+cp ./*.hdf ..
+
+cp ./*.lga ..
+cp ./*.lsp ..
+cp ./*.lst ..
+
+echo Output file: "$OUTPUTDIR"/"$OUTPUT_FILENAMES"
+
+cd -
+
+echo Cleaning temp workspace
+rm -rf "$WORKDIR"/* && rm -rf "$WORKDIR"
+
 
 echo End at $(date)
 
@@ -48,4 +65,3 @@ sleep 5
 
 umount /onedata/input || exit 1
 umount /onedata/output || exit 1
-
