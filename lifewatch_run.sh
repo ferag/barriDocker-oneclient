@@ -57,7 +57,7 @@ echo Output file: "$OUTPUTDIR"/"$OUTPUT_FILENAMES"
 cd -
 
 echo Cleaning temp workspace
-rm -rf "$WORKDIR"/* && rm -rf "$WORKDIR"
+#rm -rf "$WORKDIR"/* && rm -rf "$WORKDIR"
 
 
 echo End at $(date)
