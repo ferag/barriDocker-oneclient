@@ -3,7 +3,7 @@
 mkdir -p /onedata/input
 mkdir -p /onedata/output
 
-ONECLIENT_AUTHORIZATION_TOKEN="$INPUT_ONEDATA_TOKEN" PROVIDER_HOSTNAME="$INPUT_ONEDATA_PROVIDERS" oneclient --no_check_certificate --authentication token -o ro /onedata/input || exit 1
+ONECLIENT_AUTHORIZATION_TOKEN="$INPUT_ONEDATA_TOKEN" PROVIDER_HOSTNAME="$INPUT_ONEDATA_PROVIDERS" oneclient --no_check_certificate --authentication token -o rw /onedata/input || exit 1
 ONECLIENT_AUTHORIZATION_TOKEN="$OUTPUT_ONEDATA_TOKEN" PROVIDER_HOSTNAME="$OUTPUT_ONEDATA_PROVIDERS" oneclient --no_check_certificate --authentication token -o rw /onedata/output || exit 1
 
 echo Start at $(date)
@@ -19,8 +19,8 @@ WORKDIR="$TEMPW"
 # Extract input
 echo Extracting input
 
-#find "$INPUTDIR" -name "*.tar.gz" -exec tar xfz {} --no-same-owner -C "$WORKDIR" \; || exit 1
-cp "$INPUTDIR"/* "$WORKDIR" || exit 1
+find "$INPUTDIR" -name "*.tar.gz" -exec tar xfz {} --no-same-owner -C "$WORKDIR" \; || exit 1
+#cp "$INPUTDIR"/* "$WORKDIR" || exit 1
 cd "$WORKDIR" || exit 2
 
 echo Listing directory content:
