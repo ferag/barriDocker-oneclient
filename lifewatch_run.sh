@@ -37,7 +37,7 @@ fi
 
 echo Run test
 # Run Rscript
-./run_delwaq.sh || exit 1
+./run_delwaq.sh > log.txt || exit 1
 
 sleep 3
 
