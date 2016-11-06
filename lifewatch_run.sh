@@ -45,7 +45,15 @@ sleep 3
 
 # Collect output
 echo Compressing output: 
-tar cfz "$OUTPUTDIR"/"$OUTPUT_FILENAMES" * 
+#tar cfz "$OUTPUTDIR"/"$OUTPUT_FILENAMES" * 
+
+cp ./*.hda "$OUTPUTDIR"
+cp ./*.hdf "$OUTPUTDIR"
+cp ./*.txt "$OUTPUTDIR"
+
+cp ./*.lga "$OUTPUTDIR"
+cp ./*.lsp "$OUTPUTDIR"
+cp ./*.lst "$OUTPUTDIR"
 
 echo Output file: "$OUTPUTDIR"/"$OUTPUT_FILENAMES"
 
