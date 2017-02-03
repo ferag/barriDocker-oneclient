@@ -50,7 +50,7 @@ echo Compressing output:
 cp ./*.hda "$OUTPUTDIR"
 cp ./*.hdf "$OUTPUTDIR"
 cp ./*.txt "$OUTPUTDIR"
-
+cp ./*.inp "$OUTPUTDIR"
 cp ./*.lga "$OUTPUTDIR"
 cp ./*.lsp "$OUTPUTDIR"
 cp ./*.lst "$OUTPUTDIR"
